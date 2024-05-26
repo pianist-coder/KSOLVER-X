@@ -34,7 +34,6 @@ if os.path.exists(bloom_filter_name):
     bf = BloomFilter.open(bloom_filter_name)
 else:
     bf = BloomFilter(count, 0.0000000001, bloom_filter_name)
-#b = open(filebase, 'a')
 st = time.time()
 #=========================================================================
 
