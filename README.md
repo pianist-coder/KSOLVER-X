@@ -1,5 +1,5 @@
 # KSOLVER-X
-Find PrivateKey of corresponding Pubkey(s) using random xpoint search
+Find PrivateKey of corresponding Pubkey using random xpoint search
 
 KSOLVER X is a tool for solving private keys in the Bitcoin ecosystem. It is designed to efficiently search for private keys that correspond to a given public key.
 
