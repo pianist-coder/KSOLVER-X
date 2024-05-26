@@ -144,7 +144,7 @@ def process_collision(item, i, counter, fc, match, queue, r, basefile, sign, ste
         offset = p1 - i + step if sign == "addition" else p1 + i + step
         with open('FOUND.txt', 'a') as found:
             found.write(f'{a.hex()};{offset:x}\n')
-        printc(color.BOLD, f"\n[+] Core#{r} solved key by {sign} with step " + hex(step)[2:])
+        printc(color.BOLD, f"\n[+] Core#{r} solved key by {sign} with step {step:x}")
         match.set()
         queue.put_nowait(offset)
     else:
