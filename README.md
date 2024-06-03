@@ -29,7 +29,7 @@ Once the dependencies are installed, you can run the KSOLVER X script with the f
 
 ```
 python3 bloom.py <bloom_size> <bloom_filter_file> <base_file> <range> <cores>
-python3 ksolverx.py <public_key> <bloom_filter_file> <base_file> <range> <num group keys> <cores>
+python3 ksolverx.py <public_key> <bloom_filter_file> <base_file> <range> <num_group_keys> <cores>
 ```
 
 - `<bloom_size>`: The number of random xpoints to be added to the bloom filter.
@@ -48,7 +48,7 @@ python3 ksolverx.py 04ab53fd1c7651beb0ddd9a10c071ed29ff0f59bab61c72be03741c5ed3c
 ```
 
 
-This create bloom filter with 100000000 xpoints and will search for the private key corresponding to the given public key, using a Bloom filter stored in the `60` file, a base private key file `60.txt`, a key range of 59-60 bits, and 10 CPU cores.
+This create bloom filter with 100000000 xpoints and will search for the private key corresponding to the given public key, using a Bloom filter stored in the `60` file, a base private key file `60.txt`, a key range of 59-60 bits, 1000000 continuous key and 10 CPU cores.
 
 ## Run
 ```
