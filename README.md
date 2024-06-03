@@ -29,7 +29,7 @@ Once the dependencies are installed, you can run the KSOLVER X script with the f
 
 ```
 python3 bloom.py <bloom_size> <bloom_filter_file> <base_file> <range> <cores>
-python3 ksolverx.py <public_key> <bloom_filter_file> <base_file> <range> <cores>
+python3 ksolverx.py <public_key> <bloom_filter_file> <base_file> <range> <num group keys> <cores>
 ```
 
 - `<bloom_size>`: The number of random xpoints to be added to the bloom filter.
@@ -37,16 +37,18 @@ python3 ksolverx.py <public_key> <bloom_filter_file> <base_file> <range> <cores>
 - `<bloom_filter_file>`: The file containing the Bloom filter data.
 - `<base_file>`: The file containing the base private key information.
 - `<range>`: The bit range to search for the private key.
+- `<num group keys>`: Number of continuous keys in 1 group operation.
 - `<cores>`: The number of CPU cores to use for parallel processing.
 
 For example, to run the script with the following parameters:
 
 ```
-python3 bloom.py 5000000 50 50.txt 50 5
-python3 ksolverx.py 02ae959a3b18d878940aa33aaa0fde5b8160bd51f4cf8c772f27df010af1cc2da4 50 50.txt 50 5
+python3 bloom.py 100000000 60 60.txt 60 10
+python3 ksolverx.py 04ab53fd1c7651beb0ddd9a10c071ed29ff0f59bab61c72be03741c5ed3c98985b67178dc7ccece4f71966c95bc0cef0fa5c1199375ed99fdde10a5e2b7256cc56 60 60.txt 60 1000000 10
 ```
 
-This will search for the private key corresponding to the given public key, using a Bloom filter stored in the `50` file, a base private key file `50.txt`, a key range of 49-50 bits, and 5 CPU cores.
+
+This create bloom filter with 100000000 xpoints and will search for the private key corresponding to the given public key, using a Bloom filter stored in the `60` file, a base private key file `60.txt`, a key range of 59-60 bits, and 10 CPU cores.
 
 ## Run
 ```
@@ -58,12 +60,12 @@ by pianist (Telegram: @pianist_coder | btc: bc1q0jth0rjaj2vqtqgw45n39fg4qrjc37hc
 
 [+] Program started
 ---------------------------------------------------------------------------------------
-[+] Items: 5000000
-[+] Cores: 5
+[+] Items: 100000000
+[+] Cores: 10
 ---------------------------------------------------------------------------------------
-[5.00 M] [365.02 Kkeys] [00:00:13.70]
+[100.00 M] [469.65 Kkeys] [00:03:32.92]
 
-[+] Bloom creating complete in 13.82 sec
+[+] Bloom creating complete in 213.02 sec
 
 
 █░▄▀ ▄▀▀ ▄▀▄ █░░ ▐▌░▐▌ █▀▀ █▀▀▄     █░█
@@ -74,24 +76,20 @@ by pianist (Telegram: @pianist_coder | btc: bc1q0jth0rjaj2vqtqgw45n39fg4qrjc37hc
 
 [+] Program started
 ---------------------------------------------------------------------------------------
-[+] Pubkey:          02AE959A3B18D878940AA33AAA0FDE5B8160BD51F4CF8C772F27DF010AF1CC2DA4
-[+] Bloom items:     5000000
-[+] Key range:       49 bit
-[+] Cores:           5
+[+] Pubkey:          02AB53FD1C7651BEB0DDD9A10C071ED29FF0F59BAB61C72BE03741C5ED3C98985B
+[+] Bloom items:     100000000
+[+] Key range:       59 bit
+[+] Cores:           10
 [+] Bloom collision: 0
 ---------------------------------------------------------------------------------------
-[2^26.52] [8.54 Mkeys] [00:00:11.24] [Prob: 57.37167666834665880060%]
+[2^25.58] [17.19 Mkeys] [00:00:02.91] [Prob: 0.86361100810615765155%]
 [+] Bloom collision...
+[2^26.42] [16.20 Mkeys] [00:00:05.56] [Prob: 1.54912678225391786668%]
+[+] Core#7 solved key by addition with step f4beb6aabc588b
 
-[+] Core#3 solved key by subtraction with step 38d9f9562f50
-
 -----------------------------------------------------
-31ca2ab2f0ccc
+aa6abb5226660bf
 -----------------------------------------------------
-15FgeY1wMD5dPYyFT6dRkJ88joz1VktFSg
-KwDiBf89QgGbjEhKnhXJuH7LrciVrZi3qYjggYtmF5f7EXzp4Zdo
------------------------------------------------------
-[+] Complete in 11.67 sec
 ```
 ## How it Works
 
