@@ -21,9 +21,6 @@ splash = """
 sp = """
 -----------------------------------------------------
 {0:x}
------------------------------------------------------
-{1}
-{2}
 -----------------------------------------------------"""
 #=========================================================================
 class color:
@@ -34,13 +31,14 @@ class color:
     UNDERLINE = "\033[4m"
     END = "\033[0m"
 #=========================================================================
-k, blname, basefile, rng, c = sys.argv[1:]
+k, blname, basefile, rng, n, c = sys.argv[1:]
 
 bloom = pybloomfilter.BloomFilter.open(blname)
 a = btc.pub2upub(k)
 l = bloom.capacity
 st = time.time()
 rng = int(rng)
+n = int(n)
 c = int(c)
 start = 2 ** (rng - 1)
 end = 2 ** rng - 1
@@ -92,7 +90,7 @@ def find(word, file):
     return None
 
 def chunks(s):
-    for start in range(0, 66560, 65):
+    for start in range(0, 65*n, 65):
         yield s[start : start + 65]
 
 def key_solver(cores="all"):
@@ -123,16 +121,16 @@ def solve_keys(counter, fc, match, queue, r):
      #   with open('possible.txt', 'a') as found: ### you may save result xpoints for future
      #       found.write(f'{a_.hex()[2:66]} # + {step:x}\n')
         with counter.get_lock():
-            counter.value += 2048
-        for i1, item in enumerate(chunks(btc.point_sequential_increment(1024, a_))):
+            counter.value += n*2
+        for i1, item in enumerate(chunks(btc.point_sequential_increment(n, a_))):
             if item in bloom:
                 process_collision(item, i1 + 1, counter, fc, match, queue, r, basefile, "addition", step)
                 if match.is_set(): return
-        for i2, item in enumerate(chunks(btc.point_sequential_decrement(1024, a_))):
+        for i2, item in enumerate(chunks(btc.point_sequential_decrement(n, a_))):
             if item in bloom:
                 process_collision(item, i2 + 1, counter, fc, match, queue, r, basefile, "subtraction", step)
                 if match.is_set(): return
-        if counter.value % 1000000 == 0:
+        if counter.value % (n*c*2) == 0:
             speedup_prob(st, counter.value, l, rng)
 
 def process_collision(item, i, counter, fc, match, queue, r, basefile, sign, step):
